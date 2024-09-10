@@ -24,13 +24,18 @@ public class GenerateImplService {
         if (null == clazz) {
             isLoaded = false;
         }
-        // System.out.println("class is loaded: " + isLoaded);
+        System.out.println("class is loaded: " + isLoaded);
         return clazz;
     }
 
     public static String generateClass(String className, String newPackage) {
         Class<?> iclazz = loadClass(className);
 
+        if (null == iclazz) {
+          String message = "class " + className + " could not be loaded.";
+          System.err.println(message);
+          throw new IllegalArgumentException(message);
+        }
         if (!iclazz.isInterface()) {
             String message = "class " + className + " is not an interface.";
             System.err.println(message);
